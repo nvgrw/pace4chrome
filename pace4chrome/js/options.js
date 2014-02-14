@@ -17,7 +17,7 @@ var presets = [
 
 function refreshArea(){
 	chrome.runtime.sendMessage(null, {"id" : "pace4chrome-cssget"}, function(response){
-		paceCSSArea.value = response.css;
+		applyCSS(response.css);
 	});
 }
 
@@ -27,14 +27,51 @@ function saveArea(){
 
 function resetArea(){
 	chrome.runtime.sendMessage(null, {"id" : "pace4chrome-cssresetget"}, function(response){
-		paceCSSArea.value = response.css;
+		applyCSS(response.css);
 	});
 }
 
 save.onclick = saveArea;
 reset.onclick = resetArea;
 loadpres.onclick = function(){
-	paceCSSArea.value = presets[presetSelector.selectedIndex];
+	applyCSS(presets[presetSelector.selectedIndex]);
+}
+showAdvanced.onclick = function(){
+	if(showAdvanced.className == "hidden"){
+		showAdvanced.className = "shown";
+		advanced.className = "shown";
+	}else{
+		showAdvanced.className = "hidden";
+		advanced.className = "";
+	}
+}
+
+function applyCSS(css){
+	themeTester.innerHTML = css;
+	paceCSSArea.value = css;
+}
+
+paceCSSArea.onchange = function(){
+	applyCSS(paceCSSArea.value);
+}
+
+paceCSSArea.onkeyup = function(){
+	applyCSS(paceCSSArea.value);
 }
 
 refreshArea();
+
+// Pace.options.minTime = 1000;
+
+Pace.stop();
+setTimeout(function(){
+	Pace.bar.el.className = "pace pace-active";
+	Pace.bar.progress = 50;
+	Pace.bar.lastRenderedProgress = 50;
+	var progressBar = Pace.bar.el.getElementsByClassName("pace-progress")[0];
+	progressBar.style.width = "50%";
+	progressBar.setAttribute("data-progress-text", "50%");
+	progressBar.setAttribute("data-progress", "50");
+	document.body.className = "pace-running";
+	Pace.running = true;
+}, 1000);

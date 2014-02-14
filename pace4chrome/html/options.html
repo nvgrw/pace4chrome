@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Pace4Chrome Options</title>
+		<style type="text/css">
+		* {
+			font-family: "Helvetica", sans-serif;
+		}
+
+		#paceCSSArea {
+			position: relative;
+			font-family: monospace;
+			width: 600px;
+			height: 400px;
+			resize: both;
+		}
+
+		h4.b {
+			margin-top: -10px;
+			margin-bottom: 10px;
+		}
+
+		div#advanced {
+			display: none;
+		}
+
+		div#advanced.shown {
+			display: block;
+		}
+		</style>
+		<style type="text/css" id="themeTester">
+		</style>
+	</head>
+	<body>
+		<h1>Pace4Chrome - pace.js on every website</h1>
+		<h5>
+			<button id="save">Save Settings</button>
+			<button id="reset">Reset to Default</button>
+		</h5>
+		<div id="easy">
+			<h5>
+				Presets:
+				<select id="presetSelector">
+					<optgroup label="Presets">
+						<option>Minimal (Default)</option>
+						<option>Flash</option>
+						<option>Barber Shop</option>
+						<option>Mac OSX</option>
+						<option>Fill Left</option>
+						<option>Flat Top</option>
+						<option>Big Counter</option>
+						<option>Corner Indicator</option>
+						<option>Bounce</option>
+						<option>Loading Bar</option>
+						<option>Center Circle</option>
+						<option>Center Atom</option>
+						<option>Center Radar</option>
+						<option>Center Simple</option>
+					</optgroup>
+				</select>
+				<button id="loadpres">Load Preset</button>
+			</h5>
+		</div>
+		<a href="#" id="showAdvanced" class="hidden">Show Advanced Options</a>
+		<div id="advanced">
+			Edit Pace CSS:<br>
+			<textarea id="paceCSSArea" cols="80" rows="80"></textarea><br>
+		</div>
+		<p>
+			<h4 class="b">About / Credits</h4>
+			Pace4Chrome is a small extension for Chrome which injects <a href="http://github.hubspot.com/pace/docs/welcome/">pace.js</a> and a stylesheet into every page visited. This shows a progress bar (per default) on every page while it loads, complementing the default Chrome spinner, which by itself, is not very telling of the overall page load progress.
+		</p>
+		<p>
+			You can use presets or write your own pace.js loading indicators using CSS. The presets are taken directly from the <a href="http://github.hubspot.com/pace/docs/welcome/">pace.js website</a> - the colours can be changed on their website and the code can then be copied back onto this page.
+		</p>
+		<p>
+			Extension &copy;2014 Niklas Vangerow (notrodash)
+		</p>
+	</body>
+	<script type="application/javascript" src="../js/pace.js"></script>
+	<script type="application/javascript" src="../js/options.js"></script>
+</html>
