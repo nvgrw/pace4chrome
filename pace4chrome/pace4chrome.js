@@ -1,0 +1,1 @@
+chrome.runtime.sendMessage(null, {"id" : "pace4chrome-cssinject"});

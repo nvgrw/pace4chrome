@@ -1,0 +1,31 @@
+{
+	"manifest_version" : 2,
+	"name" : "Pace4Chrome",
+	"description" : "Use pace.js on every website",
+	"version" : "1.0",
+	"author" : "Niklas Vangerow (notrodash)",
+	"content_scripts" : [
+		{
+			"run_at": "document_start",
+			"matches" : ["<all_urls>"],
+			"js" : ["pace4chrome.js", "pace.js"],
+			"all_frames" : false
+		}
+	],
+	"permissions" : [
+		"<all_urls>",
+		"tabs",
+		"storage"
+	],
+	"options_page" : "options.html",
+	"background" : {
+		"scripts" : ["pace4chromebg.js"],
+		"persistent" : false
+	},
+	"icons" : {
+		"64" : "icon64.png",
+		"128" : "icon128.png",
+		"256" : "icon256.png",
+		"512" : "icon512.png"
+	}
+}
