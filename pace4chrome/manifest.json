@@ -1,7 +1,7 @@
 {
 	"manifest_version" : 2,
 	"name" : "Pace4Chrome",
-	"description" : "Use pace.js on every website",
+	"description" : "A pace.js page load progress indicator on every page.",
 	"version" : "1.0",
 	"author" : "Niklas Vangerow (notrodash)",
 	"content_scripts" : [
