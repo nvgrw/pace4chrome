@@ -2,81 +2,143 @@
 <html>
 	<head>
 		<title>Pace4Chrome Options</title>
-		<style type="text/css">
-		* {
-			font-family: "Helvetica", sans-serif;
-		}
-
-		#paceCSSArea {
-			position: relative;
-			font-family: monospace;
-			width: 600px;
-			height: 400px;
-			resize: both;
-		}
-
-		h4.b {
-			margin-top: -10px;
-			margin-bottom: 10px;
-		}
-
-		div#advanced {
-			display: none;
-		}
-
-		div#advanced.shown {
-			display: block;
-		}
-		</style>
 		<style type="text/css" id="themeTester">
 		</style>
+		<link rel="stylesheet" href="../css/pure.css" type="text/css"/>
+		<link rel="stylesheet" href="../css/options.css" type="text/css"/>
 	</head>
 	<body>
-		<h1>Pace4Chrome - pace.js on every website</h1>
-		<h5>
-			<button id="save">Save Settings</button>
-			<button id="reset">Reset to Default</button>
-		</h5>
-		<div id="easy">
-			<h5>
-				Presets:
-				<select id="presetSelector">
-					<optgroup label="Presets">
-						<option>Minimal (Default)</option>
-						<option>Flash</option>
-						<option>Barber Shop</option>
-						<option>Mac OSX</option>
-						<option>Fill Left</option>
-						<option>Flat Top</option>
-						<option>Big Counter</option>
-						<option>Corner Indicator</option>
-						<option>Bounce</option>
-						<option>Loading Bar</option>
-						<option>Center Circle</option>
-						<option>Center Atom</option>
-						<option>Center Radar</option>
-						<option>Center Simple</option>
-					</optgroup>
-				</select>
-				<button id="loadpres">Load Preset</button>
-			</h5>
+		<div class="container">
+			<div class="pure-g">
+				<div class="pure-u-5-5">
+					<div class="grid-padded">
+						<h1 class="inline">Pace4Chrome - pace.js on every website</h1><br>
+						<h6 class="inline">By <a href="http://www.twitter.com/notrodash">@notrodash</a></h6>
+					</div>
+				</div>
+			</div><br>
+			<div class="pure-g">
+				<div class="pure-u-12-24">
+					<div class="grid-padded">
+						<button id="save" class="pure-button pure-button-primary">Save Changes</button>
+						<button id="reset" class="pure-button pure-button-primary">Reset to Default</button>
+					</div>
+				</div>
+				<div class="pure-u-12-24">
+					<div class="grid-padded pure-form">
+						<h4 class="inline">Change Color:</h4>&nbsp;<input type="text" class="color" id="colPicker" value="#29d"/>
+					</div>
+				</div>
+
+				<div id="easy">
+					<div class="pure-u-5-5">
+					<h3>Presets:</h3>
+					</div>
+					<!-- ROW ONE -->
+					<div class="pure-u-1-5">
+						<div class="grid-padded">
+							<a presID="0" class="pure-button pres">Minimal (Default)</a>
+						</div>
+					</div>
+					<div class="pure-u-1-5">
+						<div class="grid-padded">
+							<a presID="1" class="pure-button pres">Flash</a>
+						</div>
+					</div>
+					<div class="pure-u-1-5">
+						<div class="grid-padded">
+							<a presID="2" class="pure-button pres">Mobile Chrome</a>
+						</div>
+					</div>
+					<div class="pure-u-1-5">
+						<div class="grid-padded">
+							<a presID="3" class="pure-button pres">Barber Shop</a>
+						</div>
+					</div>
+					<div class="pure-u-1-5">
+						<div class="grid-padded">
+							<a presID="4" class="pure-button pres">Mac OSX</a>
+						</div>
+					</div>
+					<!-- ROW TWO -->
+					<div class="pure-u-1-5">
+						<div class="grid-padded">
+							<a presID="5" class="pure-button pres">Fill Left</a>
+						</div>
+					</div>
+					<div class="pure-u-1-5">
+						<div class="grid-padded">
+							<a presID="6" class="pure-button pres">Flat Top</a>
+						</div>
+					</div>
+					<div class="pure-u-1-5">
+						<div class="grid-padded">
+							<a presID="7" class="pure-button pres">Big Counter</a>
+						</div>
+					</div>
+					<div class="pure-u-1-5">
+						<div class="grid-padded">
+							<a presID="8" class="pure-button pres">Corner Indicator</a>
+						</div>
+					</div>
+					<div class="pure-u-1-5">
+						<div class="grid-padded">
+							<a presID="9" class="pure-button pres">Bounce</a>
+						</div>
+					</div>
+					<!-- ROW THREE -->
+					<div class="pure-u-1-5">
+						<div class="grid-padded">
+							<a presID="10" class="pure-button pres">Loading Bar</a>
+						</div>
+					</div>
+					<div class="pure-u-1-5">
+						<div class="grid-padded">
+							<a presID="11" class="pure-button pres">Center Circle</a>
+						</div>
+					</div>
+					<div class="pure-u-1-5">
+						<div class="grid-padded">
+							<a presID="12" class="pure-button pres">Center Atom</a>
+						</div>
+					</div>
+					<div class="pure-u-1-5">
+						<div class="grid-padded">
+							<a presID="13" class="pure-button pres">Center Radar</a>
+						</div>
+					</div>
+					<div class="pure-u-1-5">
+						<div class="grid-padded">
+							<a presID="14" class="pure-button pres">Center Simple</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="pure-u-5-5">
+					<div class="grid-padded">
+						<a id="showAdvanced" class="pure-button pure-button-primary shidden">Show Advanced Options</a>
+					</div>
+				</div>
+
+
+				<div id="advanced">
+					<div class="pure-u-1-5">
+						Edit Pace CSS:
+					</div>
+					<div class="pure-u-4-5 css-warning">
+						<h5 class="inline">Warning: Changing color or presets will erase all changes!</h5>
+					</div>
+					<div class="pure-u-5-5">
+						<div class="grid-padded grid-padded-but-top">
+							<textarea id="paceCSSArea" cols="80" rows="80"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<a href="#" id="showAdvanced" class="hidden">Show Advanced Options</a>
-		<div id="advanced">
-			Edit Pace CSS:<br>
-			<textarea id="paceCSSArea" cols="80" rows="80"></textarea><br>
-		</div>
-		<p>
-			<h4 class="b">About / Credits</h4>
-			Pace4Chrome is a small extension for Chrome which injects <a href="http://github.hubspot.com/pace/docs/welcome/">pace.js</a> and a stylesheet into every page visited. This shows a progress bar (per default) on every page while it loads, complementing the default Chrome spinner, which by itself, is not very telling of the overall page load progress.
-		</p>
-		<p>
-			You can use presets or write your own pace.js loading indicators using CSS. The presets are taken directly from the <a href="http://github.hubspot.com/pace/docs/welcome/">pace.js website</a> - the colours can be changed on their website and the code can then be copied back onto this page.
-		</p>
-		<p>
-			Extension &copy;2014 Niklas Vangerow (notrodash)
-		</p>
 	</body>
 	<script type="application/javascript" src="../js/pace.js"></script>
+	<script type="application/javascript" src="../js/color.js"></script>
+	<script type="application/javascript" src="../js/jscolor.js"></script>
 	<script type="application/javascript" src="../js/options.js"></script>
 </html>
