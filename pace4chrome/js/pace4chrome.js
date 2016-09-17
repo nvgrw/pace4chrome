@@ -26,5 +26,11 @@
 
 // This script runs whenever a new page is loaded. The background script does not have the same
 // lifecycle, so here we send a message to the background script so that it can inject the custom
-// CSS into the active page.
-chrome.runtime.sendMessage(null, {"id": messageKeys.inject})
+// CSS and pace.js into the active page.
+
+chrome.runtime.sendMessage(null, {"id": messageKeys.checkBlacklisted, "href": window.location.href}, function(isBlacklisted) {
+    // if the page is not blacklisted, don't inject any scripts.
+    if (!isBlacklisted) {
+        chrome.runtime.sendMessage(null, {"id": messageKeys.inject})
+    }
+})

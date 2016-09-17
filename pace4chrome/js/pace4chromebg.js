@@ -36,6 +36,7 @@ let paceCSSCacheString = defaultCSSToInject
 
 // Load this session's CSS so that the paceCSSCacheString string is populated
 reloadCachedCSS()
+reloadCachedBlacklist()
 
 // Load the provided string into the CSS cache and in permanent storage
 function setCustomCSS(newCSS){
@@ -69,6 +70,52 @@ function injectCSS() {
 	})
 }
 
+// --- Blacklist ---
+// Array of regular expressions for the blacklist
+let blacklisted = []
+
+// Get the blacklist as an array of strings
+function getBlacklist(callback) {
+	storage.get(storageKeys.blacklist, function(data) {
+		if (data.hasOwnProperty(storageKeys.blacklist)) {
+			const blacklist = data[storageKeys.blacklist].split("\n")
+			callback(blacklist)
+		} else {
+			callback([])
+		}
+	})
+}
+
+// Set the blacklist string, each item separated by a newline
+function setBlacklistString(blacklistString) {
+	const blacklistKey = storageKeys.blacklist	
+	storage.set({blacklistKey: blacklistString})
+}
+
+// Set blacklist using an array of STRINGS
+function setBlacklist(blacklistArray) {
+	setBlacklistString(blacklistArray.join("\n"))
+}
+
+function reloadCachedBlacklist() {
+	getBlacklist(function (blacklist) {
+		blacklisted = blacklist.map(function(value) {
+			return [new RegExp(value, 'i'), value]
+		})
+	})
+}
+
+function isBlacklisted(href) {
+	for (let potential of blacklisted) {
+		if (potential[0].test(href)) {
+			return true
+		}
+	}
+	return false
+}
+
+
+// --- Messages ---
 chrome.runtime.onMessage.addListener(function(request, sender, response) {
 	switch (request.id) {
 	case messageKeys.inject:
@@ -97,6 +144,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, response) {
 
 	case messageKeys.resetAndGet:
 		response({"id": request.id, "css": defaultCSSToInject})
+		return
+
+	case messageKeys.checkBlacklisted:
+		response(isBlacklisted(request.href))
 		return
 	}
 })
