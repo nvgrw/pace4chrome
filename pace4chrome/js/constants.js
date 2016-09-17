@@ -22,9 +22,19 @@
  *  SOFTWARE.
  */
 
-// -- Constants are loaded from constants.js in the manifest.
+// --- --- Constants --- ---
+// Note: These have been changed in version 2 because existing Pace CSS is likely
+// not compatible with the new version.
+const storageKeys = {
+    css: "p4c_custom_css"
+}
 
-// This script runs whenever a new page is loaded. The background script does not have the same
-// lifecycle, so here we send a message to the background script so that it can inject the custom
-// CSS into the active page.
-chrome.runtime.sendMessage(null, {"id": messageKeys.inject})
+const messageKeys = {
+    inject: "p4c_inject",
+    refresh: "p4c_refresh",
+    set: "p4c_set",
+    get: "p4c_get",
+    reset: "p4c_reset",
+    resetAndGet: "p4c_reset_get"
+}
+// --- --- --- --- --- --- ---
