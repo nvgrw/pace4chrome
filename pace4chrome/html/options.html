@@ -150,6 +150,7 @@ SOFTWARE. -->
 
 
 				<div id="advanced">
+					<!-- CSS Customisation -->
 					<div class="pure-u-1-5">
 						Edit Pace CSS:
 					</div>
@@ -158,9 +159,23 @@ SOFTWARE. -->
 					</div>
 					<div class="pure-u-5-5">
 						<div class="grid-padded grid-padded-but-top">
-							<textarea id="paceCSSArea" cols="80" rows="80"></textarea>
+							<textarea id="paceCSSArea" class="monospaced-area" cols="80" rows="40"></textarea>
 						</div>
 					</div>
+
+					<!-- Blacklist Customisation -->
+					<div class="pure-u-1-5">
+						Edit Blacklist Regular Expressions:
+					</div>
+					<div class="pure-u-4-5 css-warning">
+						<h5 class="inline">Note: Place most specific regular expressions first. Each regular expression separated by a new line.</h5>
+					</div>
+					<div class="pure-u-5-5">
+						<div class="grid-padded grid-padded-but-top">
+							<textarea id="blacklistArea" class="monospaced-area" cols="80" rows="40"></textarea>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>

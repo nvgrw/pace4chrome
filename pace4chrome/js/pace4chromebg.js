@@ -36,25 +36,40 @@ let paceCSSCacheString = defaultCSSToInject
 
 // Load this session's CSS so that the paceCSSCacheString string is populated
 reloadCachedCSS()
+reloadCachedBlacklist()
 
 // Load the provided string into the CSS cache and in permanent storage
-function setCustomCSS(newCSS){
+function setCustomCSS(newCSS) {
 	paceCSSCacheString = newCSS
-	const cssKey = storageKeys.css
-	storage.set({cssKey: newCSS})
+
+	let storageObject = {}
+	storageObject[storageKeys.css] = newCSS
+	storage.set(storageObject)
 }
 
 // Reload the CSS into the cache
-function reloadCachedCSS(){
+function reloadCachedCSS() {
 	storage.get(storageKeys.css, function(data) {
 		if (data.hasOwnProperty(storageKeys.css)) {
 			// Load saved CSS string into cache
 			paceCSSCacheString = data[storageKeys.css]
 		} else {
 			// Otherwise, store whatever css we might be caching right now
-			const cssKey = storageKeys.css
-			storage.set({cssKey: paceCSSCacheString})
+			let storageObject = {}
+			storageObject[storageKeys.css] = paceCSSCacheString
+
+			storage.set(storageObject)
 		}
+	})
+}
+
+// Inject pace.js into the current page
+function injectJS() {
+	chrome.tabs.query({currentWindow: true, active: true}, function(tabs) {
+		chrome.tabs.executeScript(null, {
+			"file": "js/pace.js",
+			"runAt": "document_start"
+		})
 	})
 }
 
@@ -69,9 +84,75 @@ function injectCSS() {
 	})
 }
 
+// --- Blacklist ---
+// Array of regular expressions for the blacklist
+let blacklisted = []
+
+// Get the blacklist as an array of strings
+function getBlacklistString(callback) {
+	storage.get(storageKeys.blacklist, function(data) {
+		if (data.hasOwnProperty(storageKeys.blacklist)) {
+			const blacklist = data[storageKeys.blacklist]
+			callback(blacklist)
+		} else {
+			callback("")
+		}
+	})
+}
+
+function getBlacklist(callback) {
+	getBlacklistString(function(blacklistString) {
+		callback(blacklistString.split("\n").filter(s => s.trim().length !== 0))
+	})
+}
+
+// Set the blacklist string, each item separated by a newline
+function setBlacklistString(blacklistString, callback) {
+	let storageObject = {}
+	storageObject[storageKeys.blacklist] = blacklistString
+
+	storage.set(storageObject, callback)
+}
+
+// Set blacklist using an array of STRINGS
+function setBlacklist(blacklistArray, callback) {
+	setBlacklistString(blacklistArray.join("\n"), callback)
+}
+
+// Reload the cached blacklist as an array of
+// regular expressions
+function reloadCachedBlacklist() {
+	getBlacklist(function (blacklist) {
+		blacklisted = blacklist.map(function(value) {
+			return [(() => {
+				// ignore invalid regular expressions
+				try {
+					return new RegExp(value, 'i')
+				} catch (e) {
+					return null
+				}
+			})(), value]
+		})
+	})
+}
+
+// Check whether a href is blacklisted by testing
+// it against the blacklist regular expressions.
+function isBlacklisted(href) {
+	for (let potential of blacklisted) {
+		if (potential !== null && potential[0].test(href)) {
+			return true
+		}
+	}
+	return false
+}
+
+
+// --- Messages ---
 chrome.runtime.onMessage.addListener(function(request, sender, response) {
 	switch (request.id) {
 	case messageKeys.inject:
+		injectJS()
 		injectCSS()
 		response({"id": request.id})
 		return
@@ -97,6 +178,32 @@ chrome.runtime.onMessage.addListener(function(request, sender, response) {
 
 	case messageKeys.resetAndGet:
 		response({"id": request.id, "css": defaultCSSToInject})
+		return
+
+	case messageKeys.checkBlacklisted:
+		response(isBlacklisted(request.href))
+		return
+
+	case messageKeys.getBlacklist:
+		response(blacklisted.map((value) => {
+			return value[1]
+		}))
+		return
+
+	case messageKeys.getBlacklistString:
+		response(blacklisted.map((value) => {
+			return value[1]
+		}).join("\n"))
+		return
+
+	case messageKeys.setBlacklist:
+		// Also reload the cache when the blacklist is changed
+		setBlacklist(request.blacklist, reloadCachedBlacklist)
+		return
+
+	case messageKeys.setBlacklistString:
+		// Also reload the cache when the blacklist is changed
+		setBlacklistString(request.blacklistString, reloadCachedBlacklist)
 		return
 	}
 })

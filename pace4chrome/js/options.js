@@ -60,16 +60,28 @@ paceCSSArea.onkeyup = function() {
 }
 
 // Obtain the latest stored CSS
-function refreshArea() {
+function refreshCSSArea() {
 	chrome.runtime.sendMessage(null, {"id": messageKeys.get}, function(response) {
 		applyCSS(response.css)
 	})
 }
 
+function refreshBlacklistArea() {
+	chrome.runtime.sendMessage(null, {"id": messageKeys.getBlacklistString}, function(response) {
+		applyBlacklist(response)
+	})	
+}
+
 // Save the current area contents
-function saveArea() {
+function saveAreas() {
 	save.innerHTML = "Saving..."
+	// Save the CSS value
 	chrome.runtime.sendMessage(null, {"id": messageKeys.set, "newCSS": paceCSSArea.value})
+
+	// Save the blacklist value
+	chrome.runtime.sendMessage(null, {"id": messageKeys.setBlacklistString, "blacklistString": blacklistArea.value})
+
+	//
 	save.innerHTML = "Changes Saved!"
 	setTimeout(function() {
 		save.innerHTML = "Save Changes"
@@ -78,14 +90,15 @@ function saveArea() {
 
 // Reset the area contents to the default settings
 // This is colour #2299dd and theme Minimal (0)
-function resetArea() {
+function resetAreas() {
 	colPicker.value = "2299dd"
 	applyCSSFromPreset(colPicker.value, 0)
+	applyBlacklist("")
 }
 
 // Hook up the save and reset buttons
-save.onclick = saveArea
-reset.onclick = resetArea
+save.onclick = saveAreas
+reset.onclick = resetAreas
 
 // Hook up the "Show advanced options
 showAdvanced.onclick = function() {
@@ -165,9 +178,15 @@ function compileCSS(sourceColor, template, callback) {
 	callback(newCSS)
 }
 
+function applyBlacklist(blacklistString) {
+	blacklistArea.value = blacklistString
+}
+
 // --- Setup ---
-// Set the initial value of the area
-refreshArea()
+// Set the initial value of the css area
+refreshCSSArea()
+// Set the initial value of the blacklist area
+refreshBlacklistArea()
 
 // Stop the pace bar for preview.
 Pace.stop()

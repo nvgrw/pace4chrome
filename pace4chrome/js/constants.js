@@ -26,7 +26,8 @@
 // Note: These have been changed in version 2 because existing Pace CSS is likely
 // not compatible with the new version.
 const storageKeys = {
-    css: "p4c_custom_css"
+    css: "p4c_custom_css",
+    blacklist: "p4c_blacklist"
 }
 
 const messageKeys = {
@@ -35,6 +36,11 @@ const messageKeys = {
     set: "p4c_set",
     get: "p4c_get",
     reset: "p4c_reset",
-    resetAndGet: "p4c_reset_get"
+    resetAndGet: "p4c_reset_get",
+    checkBlacklisted: "p4c_check_blacklist",
+    getBlacklist: "p4c_get_blacklist",
+    getBlacklistString: "p4c_get_blacklist_string",
+    setBlacklist: "p4c_set_blacklist",
+    setBlacklistString: "p4c_set_blacklist_string"
 }
 // --- --- --- --- --- --- ---
