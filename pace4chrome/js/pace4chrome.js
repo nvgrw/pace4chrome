@@ -29,8 +29,11 @@
 // CSS and pace.js into the active page.
 
 chrome.runtime.sendMessage(null, {"id": messageKeys.checkBlacklisted, "href": window.location.href}, function(isBlacklisted) {
-    // if the page is not blacklisted, don't inject any scripts.
+    // if the page is blacklisted, don't inject any scripts.
     if (!isBlacklisted) {
         chrome.runtime.sendMessage(null, {"id": messageKeys.inject})
+    } else {
+        // Let the user know, might be useful for debugging regular expressions for the blacklist.
+        console.info("This page is blacklisted. Pace4Chrome will not run.")
     }
 })

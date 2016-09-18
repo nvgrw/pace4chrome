@@ -10,7 +10,6 @@
 			"matches" : ["<all_urls>"],
 			"js" : [
 				"js/constants.js",
-				"js/pace.js",
 				"js/pace4chrome.js"
 			],
 			"all_frames" : false

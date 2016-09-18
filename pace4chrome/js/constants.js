@@ -39,6 +39,7 @@ const messageKeys = {
     resetAndGet: "p4c_reset_get",
     checkBlacklisted: "p4c_check_blacklist",
     getBlacklist: "p4c_get_blacklist",
+    getBlacklistString: "p4c_get_blacklist_string",
     setBlacklist: "p4c_set_blacklist",
     setBlacklistString: "p4c_set_blacklist_string"
 }
