@@ -22,51 +22,25 @@
  *  SOFTWARE.
  */
 
-.monospaced-area {
-	position: relative;
-	font-family: monospace;
-	width: 100%;
-	height: 200px;
-	resize: both;
+// --- --- Constants --- ---
+// Note: These have been changed in version 2 because existing Pace CSS is likely
+// not compatible with the new version.
+const storageKeys = {
+    css: "p4c_custom_css",
+    blacklist: "p4c_blacklist"
 }
 
-div#advanced {
-	display: none;
+const messageKeys = {
+    inject: "p4c_inject",
+    refresh: "p4c_refresh",
+    set: "p4c_set",
+    get: "p4c_get",
+    reset: "p4c_reset",
+    resetAndGet: "p4c_reset_get",
+    checkBlacklisted: "p4c_check_blacklist",
+    getBlacklist: "p4c_get_blacklist",
+    getBlacklistString: "p4c_get_blacklist_string",
+    setBlacklist: "p4c_set_blacklist",
+    setBlacklistString: "p4c_set_blacklist_string"
 }
-
-div#advanced.sshown {
-	display: block;
-}
-
-.container {
-	padding-top: 30px;
-	padding-left: 30px;
-	padding-right: 30px;
-}
-
-.grid-padded {
-	padding: 1em;
-}
-
-.grid-padded-but-top {
-	padding-top: 0em;
-}
-
-.preset {
-	cursor: pointer;
-	width: 85%;
-	text-align: center;
-	word-wrap: pre-wrap;
-}
-
-#colPicker {
-	width: 100px;
-}
-
-.inline {
-	display: inline;
-}
-
-.css-warning {
-	text-align: right;
-}
+// --- --- --- --- --- --- ---

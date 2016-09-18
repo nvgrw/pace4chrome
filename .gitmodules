@@ -1,0 +1,8 @@
+[submodule "dependencies/pace"]
+	path = dependencies/pace
+    url = git@github.com:HubSpot/pace.git
+    ignore = dirty
+[submodule "dependencies/jscolor"]
+	path = dependencies/jscolor
+    url = git@github.com:EastDesire/jscolor.git
+    ignore = dirty

@@ -2,13 +2,16 @@
 	"manifest_version" : 2,
 	"name" : "Pace4Chrome",
 	"description" : "A pace.js page load progress indicator on every page.",
-	"version" : "1.1.0.2",
-	"author" : "Niklas Vangerow (notrodash)",
+	"version" : "2.0",
+	"author" : "Nik Vangerow",
 	"content_scripts" : [
 		{
 			"run_at": "document_start",
 			"matches" : ["<all_urls>"],
-			"js" : ["js/pace4chrome.js", "js/pace.js"],
+			"js" : [
+				"js/constants.js",
+				"js/pace4chrome.js"
+			],
 			"all_frames" : false
 		}
 	],
@@ -19,7 +22,10 @@
 	],
 	"options_page" : "html/options.html",
 	"background" : {
-		"scripts" : ["js/pace4chromebg.js"],
+		"scripts" : [
+			"js/constants.js",
+			"js/pace4chromebg.js"
+		],
 		"persistent" : false
 	},
 	"icons" : {
