@@ -66,7 +66,7 @@ function reloadCachedCSS() {
 // Inject pace.js into the current page
 function injectJS() {
 	chrome.tabs.query({currentWindow: true, active: true}, function(tabs) {
-		chrome.tabs.executeScript(null, {
+		chrome.tabs.executeScript(tabs[0].id, {
 			"file": "js/pace.js",
 			"runAt": "document_start"
 		})
@@ -140,7 +140,7 @@ function reloadCachedBlacklist() {
 // it against the blacklist regular expressions.
 function isBlacklisted(href) {
 	for (let potential of blacklisted) {
-		if (potential !== null && potential[0].test(href)) {
+		if (potential[0] !== null && potential[0].test(href)) {
 			return true
 		}
 	}
